@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111a2e"><meta name="description" content="SUMAN SMART — your complete study companion for Classes 9, 10 and 11.">
+<link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icon.svg"><link rel="stylesheet" href="/style.css">
+<title>SUMAN SMART v4</title>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="logo">S</span><span><b>SUMAN SMART</b><small>STUDY • PRACTISE • PROGRESS</small></span></a>
+  <div class="top-actions"><span id="streakBadge" class="streak">🔥 0 day streak</span><button id="installBtn" class="btn outline hidden">Install app</button></div>
+</header>
+<main class="shell">
+<section class="hero">
+ <div><p class="kicker">YOUR PERSONAL LEARNING HUB</p><h1>Study smarter.<br><em>Go further.</em></h1><p class="hero-sub">Tools for Classes 9, 10 and 11 — made for everyday learning.</p></div>
+ <div class="hero-side"><div class="date-card"><small>TODAY</small><strong id="todayDate">—</strong><span>One focused day at a time.</span></div></div>
+</section>
+
+<section class="dashboard-grid">
+ <article class="panel motivation">
+  <div class="panel-top"><span class="kicker">✦ DAILY MOTIVATION</span><span class="pill">NEW EVERY DAY</span></div>
+  <h2 id="quoteText">Start where you are. Use what you have. Do what you can.</h2>
+  <p id="quoteBy" class="muted">— SUMAN SMART</p>
+ </article>
+ <article class="panel news">
+  <div class="panel-top"><span class="kicker">◎ DAILY NEWS</span><button id="refreshNews" class="link-btn">Refresh ↻</button></div>
+  <div id="newsList"><p class="muted">Loading current headlines…</p></div>
+  <small id="newsMeta" class="muted">Headlines link to their publishers.</small>
+ </article>
+</section>
+
+<section class="setup-row panel">
+ <div><span class="kicker">YOUR STUDY PROFILE</span><h2>Choose your class</h2><p class="muted">Subjects and study tools adapt to your selection.</p></div>
+ <div class="profile-controls">
+  <label>Class<select id="classSelect"><option value="9">Class 9</option><option value="10">Class 10</option><option value="11" selected>Class 11</option></select></label>
+  <label>Stream<select id="streamSelect"><option value="commerce" selected>Commerce</option><option value="general">General / Other</option></select></label>
+ </div>
+</section>
+
+<nav class="nav" id="mainNav">
+ <button class="nav-btn active" data-view="home">🏠 Home</button>
+ <button class="nav-btn" data-view="subjects">📚 Subjects</button>
+ <button class="nav-btn" data-view="gujarati">અ→ا Gujarati Urdu</button>
+ <button class="nav-btn" data-view="practice">🧠 Practice</button>
+ <button class="nav-btn" data-view="planner">📅 Planner</button>
+ <button class="nav-btn" data-view="progress">📈 Progress</button>
+</nav>
+
+<section class="view active" id="view-home">
+ <div class="section-heading"><div><span class="kicker">STUDENT DASHBOARD</span><h2>What are we learning today?</h2></div></div>
+ <div class="feature-grid">
+  <article class="panel feature">
+   <div class="feature-icon">⏱</div><h3>Focus timer</h3><p class="muted">Pomodoro sessions with short breaks.</p>
+   <div id="timerDisplay" class="timer">25:00</div>
+   <div class="row"><button id="timerStart" class="btn primary">Start</button><button id="timerReset" class="btn outline">Reset</button></div>
+   <label class="field">Focus duration (minutes)<input id="focusMinutes" type="number" min="1" max="120" value="25"></label>
+  </article>
+  <article class="panel feature">
+   <div class="feature-icon">✓</div><h3>Today's tasks</h3><p class="muted">Add homework and tick it off when done.</p>
+   <form id="taskForm" class="row"><input id="taskInput" placeholder="e.g. Revise Economics Ch. 1" maxlength="120" required><button class="btn primary">Add</button></form>
+   <ul id="taskList" class="task-list"></ul><small class="muted">Saved on this device.</small>
+  </article>
+  <article class="panel feature">
+   <div class="feature-icon">📖</div><h3>Quick revision</h3><p class="muted">Pick a subject and get a short revision session from AI.</p>
+   <select id="quickSubject" class="control"></select><button id="quickRevision" class="btn primary full">Make revision notes</button><div id="quickOutput" class="output hidden"></div>
+  </article>
+  <article class="panel feature">
+   <div class="feature-icon">🗓</div><h3>Study timetable</h3><p class="muted">Build a realistic plan for your day.</p>
+   <label class="field">Available study time<select id="studyHours"><option value="1">1 hour</option><option value="2" selected>2 hours</option><option value="3">3 hours</option><option value="4">4 hours</option></select></label>
+   <button id="makeTimetable" class="btn primary full">Create my timetable</button><div id="timetableOutput" class="output hidden"></div>
+  </article>
+ </div>
+</section>
+
+<section class="view" id="view-subjects">
+ <div class="section-heading"><div><span class="kicker">SUBJECT LIBRARY</span><h2 id="subjectHeading">Class 11 Commerce</h2><p class="muted">Choose a subject to see topics and learning tools. Topic lists are editable starters, not a substitute for your current board syllabus.</p></div></div>
+ <div id="subjectCards" class="subject-grid"></div>
+ <article class="panel section-gap">
+  <h3>📌 Subject study workspace</h3>
+  <div class="grid-two">
+   <label class="field">Subject<select id="workspaceSubject"></select></label>
+   <label class="field">Chapter / topic<input id="workspaceTopic" placeholder="Enter your chapter or topic"></label>
+  </div>
+  <div class="row wrap-row"><button id="explainTopic" class="btn primary">Explain topic</button><button id="makeQuestions" class="btn outline">Make exam questions</button><button id="makeMindmap" class="btn outline">Make mind map</button></div>
+  <div id="workspaceOutput" class="output hidden"></div>
+ </article>
+</section>
+
+<section class="view" id="view-gujarati">
+ <div class="section-heading"><div><span class="kicker">LANGUAGE SUPPORT</span><h2>Gujarati → Urdu Meaning</h2><p class="muted">Enter a Gujarati word or sentence. Get Urdu meaning, simple explanation and an example.</p></div></div>
+ <article class="panel translator">
+  <label class="field">Gujarati word / sentence<textarea id="gujaratiInput" rows="3" placeholder="અહીં ગુજરાતી શબ્દ લખો…"></textarea></label>
+  <div class="row wrap-row"><button id="translateBtn" class="btn primary">Translate into Urdu</button><button id="clearTranslate" class="btn outline">Clear</button></div>
+  <div id="translationOutput" class="output translation hidden" dir="auto"></div>
+  <div class="dictionary">
+   <h3>Try common words</h3>
+   <div id="dictionaryChips" class="chips"></div>
+   <small class="muted">Quick starter dictionary. For words not listed, AI translation needs internet and API setup.</small>
+  </div>
+ </article>
+</section>
+
+<section class="view" id="view-practice">
+ <div class="section-heading"><div><span class="kicker">ACTIVE LEARNING</span><h2>Practise until it sticks.</h2></div></div>
+ <div class="feature-grid">
+  <article class="panel feature"><div class="feature-icon">📝</div><h3>Quiz generator</h3><p class="muted">Generate MCQs with answers and explanations.</p>
+   <label class="field">Subject<select id="quizSubject"></select></label><label class="field">Topic<input id="quizTopic" placeholder="Chapter or topic"></label><label class="field">Questions<select id="quizCount"><option>5</option><option selected>10</option><option>15</option></select></label>
+   <button id="generateQuiz" class="btn primary full">Generate quiz</button>
+  </article>
+  <article class="panel feature"><div class="feature-icon">🃏</div><h3>Flashcards</h3><p class="muted">Create cards for definitions, formulas and key terms.</p>
+   <label class="field">Front / question<input id="cardFront" placeholder="e.g. Define demand"></label><label class="field">Back / answer<textarea id="cardBack" rows="2" placeholder="Write the answer"></textarea></label>
+   <button id="addCard" class="btn primary full">Save flashcard</button><div id="flashcardArea"></div>
+  </article>
+  <article class="panel feature"><div class="feature-icon">🔤</div><h3>English vocabulary</h3><p class="muted">Learn a word, its meaning and an example sentence.</p>
+   <button id="newVocab" class="btn primary full">Show today's word</button><div id="vocabOutput" class="output hidden"></div>
+  </article>
+  <article class="panel feature"><div class="feature-icon">📐</div><h3>Formula & concept helper</h3><p class="muted">Useful for Statistics and Accountancy practice.</p>
+   <label class="field">What do you need?<select id="formulaSubject"><option>Statistics</option><option>Accountancy</option><option>Economics</option><option>Mathematics</option></select></label>
+   <label class="field">Topic<input id="formulaTopic" placeholder="e.g. Mean, journal entries"></label>
+   <button id="formulaHelp" class="btn primary full">Explain formula / method</button>
+  </article>
+ </div>
+ <article class="panel section-gap"><h3>Quiz / practice result</h3><div id="quizOutput" class="output">Your generated practice will appear here.</div></article>
+</section>
+
+<section class="view" id="view-planner">
+ <div class="section-heading"><div><span class="kicker">PLAN YOUR WORK</span><h2>Planner & notes</h2></div></div>
+ <div class="grid-two">
+  <article class="panel"><h3>Exam countdown</h3><label class="field">Exam date<input id="examDate" type="date"></label><div id="countdown" class="countdown muted">Choose your exam date.</div></article>
+  <article class="panel"><h3>Personal notes</h3><textarea id="personalNotes" rows="7" placeholder="Write notes, reminders or important points…"></textarea><small class="muted">Stored locally on this device. Do not store private student data.</small></article>
+ </div>
+ <article class="panel section-gap"><h3>Weekly study plan</h3><p class="muted">Create a suggested plan from your subjects and available time.</p><label class="field">Daily study time<select id="weeklyHours"><option value="60">1 hour</option><option value="90" selected>1.5 hours</option><option value="120">2 hours</option><option value="180">3 hours</option></select></label><button id="weeklyPlan" class="btn primary">Generate weekly plan</button><div id="weeklyOutput" class="output hidden"></div></article>
+</section>
+
+<section class="view" id="view-progress">
+ <div class="section-heading"><div><span class="kicker">TRACK YOUR GROWTH</span><h2>Progress tracker</h2><p class="muted">Enter your test marks and see your percentage. This data stays on this device.</p></div></div>
+ <article class="panel">
+  <form id="marksForm" class="marks-form">
+   <label class="field">Subject<input id="markSubject" placeholder="e.g. Accountancy" required></label>
+   <label class="field">Marks obtained<input id="markGot" type="number" min="0" step="0.5" required></label>
+   <label class="field">Total marks<input id="markTotal" type="number" min="1" step="0.5" required></label>
+   <button class="btn primary">Add result</button>
+  </form>
+  <div id="marksSummary" class="marks-summary"></div><div id="marksList"></div>
+ </article>
+</section>
+
+<section class="disclaimer"><b>Remember:</b> SUMAN SMART is a study helper, not an official school portal. Check your current GSEB/board syllabus and verify AI-generated answers with your textbook or teacher.</section>
+<footer><b>SUMAN SMART</b><span>Created by Sonu</span><small>Version 4.0 · Learn • Teach • Grow</small></footer>
+</main>
+<div id="toast" class="toast" role="status"></div>
+<script src="/app.js"></script>
+</body></html>
